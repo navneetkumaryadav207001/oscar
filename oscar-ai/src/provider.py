@@ -2,7 +2,7 @@
 from abc import ABC, abstractmethod
 from collections.abc import Iterator
 from typing import Any
-from configs import ModelConfig
+from .configs import ModelConfig
 
 class Provider(ABC):
     @abstractmethod

@@ -1,9 +1,9 @@
 from collections.abc import Iterator
 import json
 import requests
-from chat import Chat
-from provider import Provider
-from configs import OpenAIProviderConfig, ModelConfig
+from ..chat import Chat
+from ..provider import Provider
+from ..configs import OpenAIProviderConfig, ModelConfig
 
 
 class OpenAICompatibleProvider(Provider):

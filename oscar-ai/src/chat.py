@@ -1,4 +1,4 @@
-from configs import Message
+from .configs import Message
 
 class Chat: 
     def __init__(self):

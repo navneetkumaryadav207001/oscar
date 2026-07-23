@@ -1,7 +1,7 @@
 from collections.abc import Iterator
-from chat import Chat
-from provider import Provider
-from configs import ModelConfig
+from .chat import Chat
+from .provider import Provider
+from .configs import ModelConfig
 
 class Model:
     def __init__(self, config: ModelConfig, provider: Provider):
