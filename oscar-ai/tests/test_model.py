@@ -1,4 +1,4 @@
-from model import Model, ModelConfig
+from src.model import Model, ModelConfig
 from pydantic import ValidationError
 import pytest
 
@@ -63,10 +63,35 @@ class TestModelConfig:
                 make_config(endpoint = 123)
 
     class TestSemanticValidation:
-        pass
-    class TestKnownModels:
-        pass
+        # Valid Partition
+        def test_model_accepts_non_empty_str(self, make_config):
+            make_config(model="gemini")
+        def test_temperature_accepts_numeric_between_zero_one(self, make_config):
+            make_config(temperature=0)
+            make_config(temperature=0.7)
+            make_config(temperature=1)
+        def test_max_tokes_accepts_int_greater_than_zero(self, make_config):
+            make_config(max_tokens=1024)
+
+
+        # Invalid Partition
+        def test_model_rejects_empty_str(self, make_config):
+            with pytest.raises(ValidationError):
+                make_config(model="")
+        def test_temperature_rejects_numeric_not_between_zero_one(self, make_config):
+            with pytest.raises(ValidationError):
+                with pytest.raises(ValidationError):
+                    make_config(temperature=-0.1)
+                with pytest.raises(ValidationError):
+                    make_config(temperature=1.1)
+        def test_max_tokens_rejects_int_less_than_equals_zero(self, make_config):
+            with pytest.raises(ValidationError):
+                make_config(max_tokens = -1)
+            with pytest.raises(ValidationError):
+                make_config(max_tokens=0)
+        
     class TestCrossFieldValidation:
+        # Include Known Model Handling
         pass
     
     
@@ -81,3 +106,4 @@ class TestModel:
         pass
     class TestToolCall:
         pass
+
